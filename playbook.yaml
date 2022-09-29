@@ -1,0 +1,36 @@
+- name: Configure server
+  hosts: localhost
+  tasks:
+    - name: Install nginx
+      ansible.builtin.yum:
+        name:
+        - nginx
+        state: present
+    -
+    - name: Configure virtual environment
+      ansible.builtin.pip:
+          name:
+          - flask
+          - gunicorn
+          virtualenv: /home/ec2-user/sample-flask-app/venv
+    - name: create app services
+      ansible.builtin.template:
+        src: template/app.service.j2
+        dest: /etc/systemd/system/app.service
+        owner: ec2-user
+        group: nginx
+        mode: '0644'
+
+    - name: Reload systemd and start the app.
+      ansible.builtin.systemd:
+        state: started
+        name: app
+        daemon_reload: yes
+
+    - name: Configure nginx
+      ansible.builtin.template:
+        src: template/app.service.j2
+        dest: /etc/systemd/system/app.service
+        owner: ec2-user
+        group: nginx
+        mode: '0644'
