@@ -12,6 +12,7 @@
           name:
           - flask
           - gunicorn
+          - ec2_metadata
           virtualenv: /home/ec2-user/sample-flask-app/venv
     - name: create app services
       ansible.builtin.template:
