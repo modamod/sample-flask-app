@@ -23,14 +23,27 @@
 
     - name: Reload systemd and start the app.
       ansible.builtin.systemd:
-        state: started
+        state: restarted
         name: app
         daemon_reload: yes
 
     - name: Configure nginx
       ansible.builtin.template:
-        src: template/app.service.j2
-        dest: /etc/systemd/system/app.service
-        owner: ec2-user
+        src: template/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: nginx
         group: nginx
         mode: '0644'
+
+    - name: Configure nginx sites-enabled
+      ansible.builtin.template:
+        src: template/default
+        dest: /etc/nginx/sites-enabled/default
+        owner: nginx
+        group: nginx
+        mode: '0644'
+
+    - name: Restarted nginx.
+      ansible.builtin.systemd:
+        state: restarted
+        name: nginx

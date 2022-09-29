@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=ec2-user
 Group=nginx
-WorkingDirectory=/home/ec2-user/sample-flask-app
+WorkingDirectory=/home/ec2-user/sample-flask-app/app
 ExecStart=/home/ec2-user/sample-flask-app/venv/bin/gunicorn -b localhost:5000 app:app
 Restart=always
 [Install]

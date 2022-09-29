@@ -1,0 +1,21 @@
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name _;
+
+    location / {
+        proxy_pass http://sample-flask-app;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+    }
+}
+upstream sample-flask-app {
+    server 127.0.0.1:5000;
+}
