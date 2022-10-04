@@ -9,16 +9,13 @@
     -
     - name: Configure virtual environment
       ansible.builtin.pip:
-          name:
-          - flask
-          - gunicorn
-          - ec2_metadata
-          virtualenv: /home/ec2-user/sample-flask-app/venv
+          requirements: /flask-app/app/requirements.txt
+          virtualenv: /flask-app/venv
     - name: create app services
       ansible.builtin.template:
         src: template/app.service.j2
         dest: /etc/systemd/system/app.service
-        owner: ec2-user
+        owner: nginx
         group: nginx
         mode: '0644'
 

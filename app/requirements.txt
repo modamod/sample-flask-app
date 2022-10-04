@@ -1,0 +1,3 @@
+flask
+gunicorn
+ec2_metadata

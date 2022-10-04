@@ -3,10 +3,10 @@ Description=Sample App
 After=network.target
 
 [Service]
-User=ec2-user
+User=nginx
 Group=nginx
-WorkingDirectory=/home/ec2-user/sample-flask-app/app
-ExecStart=/home/ec2-user/sample-flask-app/venv/bin/gunicorn -b localhost:5000 app:app
+WorkingDirectory=/flask-app/app
+ExecStart=/flask-app/venv/bin/gunicorn -b localhost:5000 app:app
 Restart=always
 [Install]
 WantedBy=multi-user.target
