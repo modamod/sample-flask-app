@@ -19,6 +19,7 @@ import os
 
 app = Flask(__name__)
 
+app.config["APPLICATION_ROOT"] = os.environ.get("APPLICATION_ROOT", "/")
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
